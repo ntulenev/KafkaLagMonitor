@@ -9,4 +9,13 @@
     <Platforms>x64</Platforms>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="ConsoleTables" Version="2.4.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Abstractions\Abstractions.csproj" />
+    <ProjectReference Include="..\Models\Models.csproj" />
+  </ItemGroup>
+
 </Project>
