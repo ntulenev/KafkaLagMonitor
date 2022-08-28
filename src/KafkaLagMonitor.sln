@@ -5,11 +5,13 @@ VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KafkaLagMonitor", "KafkaLagMonitor\KafkaLagMonitor.csproj", "{FE1E802D-C1D4-40D9-BC4D-BD317B84E903}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Abstractions", "Abstractions\Abstractions.csproj", "{06075FB3-5FE1-4FE5-9A87-788BDD933D5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abstractions", "Abstractions\Abstractions.csproj", "{06075FB3-5FE1-4FE5-9A87-788BDD933D5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logic", "Logic\Logic.csproj", "{15565393-488F-445D-AF8E-0C3C171DE553}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logic", "Logic\Logic.csproj", "{15565393-488F-445D-AF8E-0C3C171DE553}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Export", "Export\Export.csproj", "{E1697F37-10FD-44F2-B957-D9D9FCE2B0D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Export", "Export\Export.csproj", "{E1697F37-10FD-44F2-B957-D9D9FCE2B0D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{8E6CF04A-C872-44B6-876C-85E285FCC79A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,14 @@ Global
 		{E1697F37-10FD-44F2-B957-D9D9FCE2B0D1}.Release|x64.Build.0 = Release|x64
 		{E1697F37-10FD-44F2-B957-D9D9FCE2B0D1}.Release|x64.ActiveCfg = Release|x64
 		{E1697F37-10FD-44F2-B957-D9D9FCE2B0D1}.Release|x64.Build.0 = Release|x64
+		{8E6CF04A-C872-44B6-876C-85E285FCC79A}.Debug|x64.ActiveCfg = Debug|x64
+		{8E6CF04A-C872-44B6-876C-85E285FCC79A}.Debug|x64.Build.0 = Debug|x64
+		{8E6CF04A-C872-44B6-876C-85E285FCC79A}.Debug|x64.ActiveCfg = Debug|x64
+		{8E6CF04A-C872-44B6-876C-85E285FCC79A}.Debug|x64.Build.0 = Debug|x64
+		{8E6CF04A-C872-44B6-876C-85E285FCC79A}.Release|x64.ActiveCfg = Release|x64
+		{8E6CF04A-C872-44B6-876C-85E285FCC79A}.Release|x64.Build.0 = Release|x64
+		{8E6CF04A-C872-44B6-876C-85E285FCC79A}.Release|x64.ActiveCfg = Release|x64
+		{8E6CF04A-C872-44B6-876C-85E285FCC79A}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
