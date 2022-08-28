@@ -7,7 +7,7 @@ using Models;
 
 namespace Logic
 {
-    internal class OffsetsLagsLoader : IOffsetsLagsLoader
+    public class OffsetsLagsLoader : IOffsetsLagsLoader
     {
         public OffsetsLagsLoader(IConsumer<byte[], byte[]> metadataConsumer,
                                  ILogger<OffsetsLagsLoader> logger)
