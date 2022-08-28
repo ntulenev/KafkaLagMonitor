@@ -3,18 +3,54 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KafkaLagMonitor", "KafkaLagMonitor\KafkaLagMonitor.csproj", "{FE1E802D-C1D4-40D9-BC4D-BD317B84E903}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KafkaLagMonitor", "KafkaLagMonitor\KafkaLagMonitor.csproj", "{FE1E802D-C1D4-40D9-BC4D-BD317B84E903}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Abstractions", "Abstractions\Abstractions.csproj", "{06075FB3-5FE1-4FE5-9A87-788BDD933D5C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logic", "Logic\Logic.csproj", "{15565393-488F-445D-AF8E-0C3C171DE553}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Export", "Export\Export.csproj", "{E1697F37-10FD-44F2-B957-D9D9FCE2B0D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{FE1E802D-C1D4-40D9-BC4D-BD317B84E903}.Debug|x64.ActiveCfg = Debug|x64
 		{FE1E802D-C1D4-40D9-BC4D-BD317B84E903}.Debug|x64.Build.0 = Debug|x64
+		{FE1E802D-C1D4-40D9-BC4D-BD317B84E903}.Debug|x64.ActiveCfg = Debug|x64
+		{FE1E802D-C1D4-40D9-BC4D-BD317B84E903}.Debug|x64.Build.0 = Debug|x64
 		{FE1E802D-C1D4-40D9-BC4D-BD317B84E903}.Release|x64.ActiveCfg = Release|x64
 		{FE1E802D-C1D4-40D9-BC4D-BD317B84E903}.Release|x64.Build.0 = Release|x64
+		{FE1E802D-C1D4-40D9-BC4D-BD317B84E903}.Release|x64.ActiveCfg = Release|x64
+		{FE1E802D-C1D4-40D9-BC4D-BD317B84E903}.Release|x64.Build.0 = Release|x64
+		{06075FB3-5FE1-4FE5-9A87-788BDD933D5C}.Debug|x64.ActiveCfg = Debug|x64
+		{06075FB3-5FE1-4FE5-9A87-788BDD933D5C}.Debug|x64.Build.0 = Debug|x64
+		{06075FB3-5FE1-4FE5-9A87-788BDD933D5C}.Debug|x64.ActiveCfg = Debug|x64
+		{06075FB3-5FE1-4FE5-9A87-788BDD933D5C}.Debug|x64.Build.0 = Debug|x64
+		{06075FB3-5FE1-4FE5-9A87-788BDD933D5C}.Release|x64.ActiveCfg = Release|x64
+		{06075FB3-5FE1-4FE5-9A87-788BDD933D5C}.Release|x64.Build.0 = Release|x64
+		{06075FB3-5FE1-4FE5-9A87-788BDD933D5C}.Release|x64.ActiveCfg = Release|x64
+		{06075FB3-5FE1-4FE5-9A87-788BDD933D5C}.Release|x64.Build.0 = Release|x64
+		{15565393-488F-445D-AF8E-0C3C171DE553}.Debug|x64.ActiveCfg = Debug|x64
+		{15565393-488F-445D-AF8E-0C3C171DE553}.Debug|x64.Build.0 = Debug|x64
+		{15565393-488F-445D-AF8E-0C3C171DE553}.Debug|x64.ActiveCfg = Debug|x64
+		{15565393-488F-445D-AF8E-0C3C171DE553}.Debug|x64.Build.0 = Debug|x64
+		{15565393-488F-445D-AF8E-0C3C171DE553}.Release|x64.ActiveCfg = Release|x64
+		{15565393-488F-445D-AF8E-0C3C171DE553}.Release|x64.Build.0 = Release|x64
+		{15565393-488F-445D-AF8E-0C3C171DE553}.Release|x64.ActiveCfg = Release|x64
+		{15565393-488F-445D-AF8E-0C3C171DE553}.Release|x64.Build.0 = Release|x64
+		{E1697F37-10FD-44F2-B957-D9D9FCE2B0D1}.Debug|x64.ActiveCfg = Debug|x64
+		{E1697F37-10FD-44F2-B957-D9D9FCE2B0D1}.Debug|x64.Build.0 = Debug|x64
+		{E1697F37-10FD-44F2-B957-D9D9FCE2B0D1}.Debug|x64.ActiveCfg = Debug|x64
+		{E1697F37-10FD-44F2-B957-D9D9FCE2B0D1}.Debug|x64.Build.0 = Debug|x64
+		{E1697F37-10FD-44F2-B957-D9D9FCE2B0D1}.Release|x64.ActiveCfg = Release|x64
+		{E1697F37-10FD-44F2-B957-D9D9FCE2B0D1}.Release|x64.Build.0 = Release|x64
+		{E1697F37-10FD-44F2-B957-D9D9FCE2B0D1}.Release|x64.ActiveCfg = Release|x64
+		{E1697F37-10FD-44F2-B957-D9D9FCE2B0D1}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
