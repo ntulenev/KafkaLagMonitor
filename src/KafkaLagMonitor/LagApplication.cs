@@ -1,19 +1,16 @@
 ﻿using Abstractions.Export;
 using Abstractions.Logic;
+using Models;
 
 namespace KafkaLagMonitor
 {
     public class LagApplication
     {
-        public LagApplication
-            (
-             IOffsetsLagsLoader offsetLoader,
-             ITopicPartitionLoader topicLoader,
-             IExporter exporter
-            )
+        public LagApplication(ILagLoader loader,
+                              IExporter exporter
+                              )
         {
-            _offsetLoader = offsetLoader ?? throw new ArgumentNullException(nameof(offsetLoader));
-            _topicLoader = topicLoader ?? throw new ArgumentNullException(nameof(topicLoader));
+            _loader = loader ?? throw new ArgumentNullException(nameof(loader));
             _exporter = exporter ?? throw new ArgumentNullException(nameof(exporter));
         }
 
@@ -21,14 +18,13 @@ namespace KafkaLagMonitor
         {
             //TODO Add to options
             var timeout = TimeSpan.FromSeconds(20);
+            var group = new GroupId("commands");
 
-            var partitions = _topicLoader.LoadPartitions(timeout);
-            var lags = _offsetLoader.LoadOffsetsLags(partitions, timeout);
+            var lags = _loader.LoadOffsetsLags(group, timeout);
             _exporter.Export(lags);
         }
 
-        private readonly IOffsetsLagsLoader _offsetLoader;
-        private readonly ITopicPartitionLoader _topicLoader;
+        private readonly ILagLoader _loader;
         private readonly IExporter _exporter;
     }
 }

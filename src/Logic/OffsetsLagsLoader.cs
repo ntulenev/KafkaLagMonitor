@@ -9,18 +9,23 @@ namespace Logic
 {
     public class OffsetsLagsLoader : IOffsetsLagsLoader
     {
-        public OffsetsLagsLoader(IConsumer<byte[], byte[]> metadataConsumer,
+        public OffsetsLagsLoader(Func<GroupId, IConsumer<byte[], byte[]>> metadataConsumerFactory,
                                  ILogger<OffsetsLagsLoader> logger)
         {
-            _metadataConsumer = metadataConsumer ?? throw new ArgumentNullException(nameof(metadataConsumer));
+            _metadataConsumerFactory = metadataConsumerFactory ?? throw new ArgumentNullException(nameof(metadataConsumerFactory));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public IReadOnlyCollection<PartitionLag> LoadOffsetsLags(IEnumerable<TopicPartition> partitions, TimeSpan timeout)
+        public IReadOnlyCollection<PartitionLag> LoadOffsetsLags(IEnumerable<TopicPartition> partitions, GroupId groupId, TimeSpan timeout)
         {
+            ArgumentNullException.ThrowIfNull(partitions);
+            ArgumentNullException.ThrowIfNull(groupId);
+
             _logger.LogDebug("Loading commited offsets.");
 
-            var committedOffsets = _metadataConsumer.Committed(partitions, timeout);
+            using var metadataConsumer = _metadataConsumerFactory(groupId);
+
+            var committedOffsets = metadataConsumer.Committed(partitions, timeout);
 
             _logger.LogDebug("Commited offsets loaded. Count {count}", committedOffsets.Count);
 
@@ -39,7 +44,7 @@ namespace Logic
                 if (tpo.Offset.IsSpecial)
                     return new PartitionLag(tpo.Topic, tpo.Partition.Value, tpo.Offset);
 
-                var watermark = _metadataConsumer.QueryWatermarkOffsets(tpo.TopicPartition, timeout);
+                var watermark = metadataConsumer.QueryWatermarkOffsets(tpo.TopicPartition, timeout);
 
                 return new PartitionLag(tpo.Topic, tpo.Partition.Value, watermark.High - tpo.Offset);
             }).ToList();
@@ -49,7 +54,7 @@ namespace Logic
             return lags;
         }
 
-        private readonly IConsumer<byte[], byte[]> _metadataConsumer;
+        private readonly Func<GroupId, IConsumer<byte[], byte[]>> _metadataConsumerFactory;
         private readonly ILogger<OffsetsLagsLoader> _logger;
     }
 }

@@ -12,6 +12,7 @@ using Abstractions.Logic;
 using Export;
 using Logic;
 using Logic.Kafka;
+using Models;
 
 namespace KafkaLagMonitor
 {
@@ -40,6 +41,7 @@ namespace KafkaLagMonitor
             services.AddSingleton<IExporter, ConsoleTableExporter>();
             services.AddSingleton<IOffsetsLagsLoader, OffsetsLagsLoader>();
             services.AddSingleton<ITopicPartitionLoader, TopicPartitionLoader>();
+            services.AddSingleton<ILagLoader, LagLoader>();
             services.AddSingleton<LagApplication>();
         }
 
@@ -49,26 +51,27 @@ namespace KafkaLagMonitor
 
             var hosts = new[]
             {
-                "test"
+                "localhost:9092"
             };
 
-            string groupId = "commands";
-
-            services.AddSingleton(sp =>
+            services.AddSingleton<Func<GroupId, IConsumer<byte[], byte[]>>>(sp =>
             {
-                return new ConsumerBuilder<byte[], byte[]>(new ConsumerConfig
+                return (groupId) =>
                 {
-                    EnableAutoCommit = false,
-                    AllowAutoCreateTopics = false,
-                    EnableAutoOffsetStore = false,
-                    AutoOffsetReset = AutoOffsetReset.Error,
-                    GroupId = groupId,
-                    BootstrapServers = string.Join(",", hosts)
-                })
-                .SetValueDeserializer(ThrowingDeserializer.Instance)
-                .SetKeyDeserializer(ThrowingDeserializer.Instance)
-                .SetPartitionsAssignedHandler((_, _) => throw new NotSupportedException("Misused."))
-                .Build();
+                    return new ConsumerBuilder<byte[], byte[]>(new ConsumerConfig
+                    {
+                        EnableAutoCommit = false,
+                        AllowAutoCreateTopics = false,
+                        EnableAutoOffsetStore = false,
+                        AutoOffsetReset = AutoOffsetReset.Error,
+                        GroupId = groupId.Value,
+                        BootstrapServers = string.Join(",", hosts)
+                    })
+                    .SetValueDeserializer(ThrowingDeserializer.Instance)
+                    .SetKeyDeserializer(ThrowingDeserializer.Instance)
+                    .SetPartitionsAssignedHandler((_, _) => throw new NotSupportedException("Misused."))
+                    .Build();
+                };
             });
 
             services.AddSingleton(sp =>
