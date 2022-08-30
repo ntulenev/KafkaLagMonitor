@@ -16,6 +16,7 @@ namespace KafkaLagMonitor
                    })
                    .ConfigureServices((hostContext, services) =>
                    {
+                       services.RegisterConfigs(hostContext);
                        services.AddKafka(hostContext);
                        services.AddAppServices(hostContext);
                        services.AddLogging(hostContext);
