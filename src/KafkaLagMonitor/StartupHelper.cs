@@ -13,11 +13,18 @@ using Export;
 using Logic;
 using Logic.Kafka;
 using Models;
+using KafkaLagMonitor.Configuration;
 
 namespace KafkaLagMonitor
 {
     public static class StartupHelper
     {
+
+        public static void RegisterConfigs(this IServiceCollection services, HostBuilderContext hostContext)
+        {
+            services.Configure<LagApplicationConfiguration>(hostContext.Configuration.GetSection(nameof(LagApplicationConfiguration)));
+        }
+
         public static void RegisterApplicationSettings(this IConfigurationBuilder builder)
         {
             builder.AddJsonFile("appsettings.json", optional: true);
