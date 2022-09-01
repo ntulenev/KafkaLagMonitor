@@ -54,12 +54,12 @@ namespace KafkaLagMonitor
 
         public static void AddKafka(this IServiceCollection services, HostBuilderContext hostContext)
         {
+            var section = hostContext.Configuration.GetSection(nameof(BootstrapServersConfiguration));
+            var config = section.Get<BootstrapServersConfiguration>();
+
             //TODO Move to config
 
-            var hosts = new[]
-            {
-                "localhost:9092"
-            };
+            var servers = string.Join(",", config.BootstrapServers);
 
             services.AddSingleton<Func<GroupId, IConsumer<byte[], byte[]>>>(sp =>
             {
@@ -72,7 +72,11 @@ namespace KafkaLagMonitor
                         EnableAutoOffsetStore = false,
                         AutoOffsetReset = AutoOffsetReset.Error,
                         GroupId = groupId.Value,
-                        BootstrapServers = string.Join(",", hosts)
+                        BootstrapServers = servers,
+                        SecurityProtocol = config.SecurityProtocol,
+                        SaslMechanism = config.SASLMechanism,
+                        SaslUsername = config.Username,
+                        SaslPassword = config.Password
                     })
                     .SetValueDeserializer(ThrowingDeserializer.Instance)
                     .SetKeyDeserializer(ThrowingDeserializer.Instance)
@@ -85,7 +89,11 @@ namespace KafkaLagMonitor
             {
                 return new AdminClientBuilder(new AdminClientConfig
                 {
-                    BootstrapServers = string.Join(",", hosts)
+                    BootstrapServers = servers,
+                    SecurityProtocol = config.SecurityProtocol,
+                    SaslMechanism = config.SASLMechanism,
+                    SaslUsername = config.Username,
+                    SaslPassword = config.Password
                 }).Build();
             });
         }
