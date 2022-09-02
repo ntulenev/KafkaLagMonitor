@@ -4,6 +4,6 @@ namespace Abstractions.Export
 {
     public interface IExporter
     {
-        public void Export(IEnumerable<PartitionLag> data);
+        public void Export(GroupLagResult groupLag);
     }
 }
