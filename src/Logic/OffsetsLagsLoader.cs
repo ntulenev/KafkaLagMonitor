@@ -16,7 +16,7 @@ namespace Logic
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public IReadOnlyCollection<PartitionLag> LoadOffsetsLags(IEnumerable<TopicPartition> partitions, GroupId groupId, TimeSpan timeout)
+        public GroupLagResult LoadOffsetsLags(IEnumerable<TopicPartition> partitions, GroupId groupId, TimeSpan timeout)
         {
             ArgumentNullException.ThrowIfNull(partitions);
             ArgumentNullException.ThrowIfNull(groupId);
@@ -51,7 +51,7 @@ namespace Logic
 
             _logger.LogDebug("Lags loaded. Count {count}", lags.Count);
 
-            return lags;
+            return new(groupId, lags);
         }
 
         private readonly Func<GroupId, IConsumer<byte[], byte[]>> _metadataConsumerFactory;
