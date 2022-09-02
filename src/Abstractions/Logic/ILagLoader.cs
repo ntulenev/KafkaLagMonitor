@@ -4,6 +4,6 @@ namespace Abstractions.Logic
 {
     public interface ILagLoader
     {
-        public IReadOnlyCollection<PartitionLag> LoadOffsetsLags(GroupId groupId, TimeSpan timeout);
+        public GroupLagResult LoadOffsetsLags(GroupId groupId, TimeSpan timeout);
     }
 }

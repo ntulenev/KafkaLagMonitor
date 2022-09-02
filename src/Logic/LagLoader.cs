@@ -17,7 +17,7 @@ namespace Logic
             _offsetLoader = offsetLoader ?? throw new ArgumentNullException(nameof(offsetLoader));
             _topicLoader = topicLoader ?? throw new ArgumentNullException(nameof(topicLoader));
         }
-        public IReadOnlyCollection<PartitionLag> LoadOffsetsLags(GroupId groupId, TimeSpan timeout)
+        public GroupLagResult LoadOffsetsLags(GroupId groupId, TimeSpan timeout)
         {
             ArgumentNullException.ThrowIfNull(groupId);
 
