@@ -34,7 +34,7 @@ Config example:
 
 Output example:
 ```
-Lag for groupId = commands
+Group - commands
  --------------------------------------------------------
  | Topic                              | Partition | Lag |
  --------------------------------------------------------
