@@ -14,6 +14,9 @@ using Logic;
 using Logic.Kafka;
 using Models;
 using KafkaLagMonitor.Configuration;
+using System.Diagnostics;
+using Microsoft.Extensions.Options;
+using KafkaLagMonitor.Configuration.Validation;
 
 namespace KafkaLagMonitor
 {
@@ -22,6 +25,7 @@ namespace KafkaLagMonitor
 
         public static void RegisterConfigs(this IServiceCollection services, HostBuilderContext hostContext)
         {
+            services.AddSingleton<IValidateOptions<BootstrapServersConfiguration>, BootstrapServersConfigurationValidator>();
             services.Configure<LagApplicationConfiguration>(hostContext.Configuration.GetSection(nameof(LagApplicationConfiguration)));
         }
 
@@ -52,17 +56,36 @@ namespace KafkaLagMonitor
             services.AddSingleton<LagApplication>();
         }
 
-        public static void AddKafka(this IServiceCollection services, HostBuilderContext hostContext)
+        /// <summary>
+        /// Gets configuration for Kafka servers.
+        /// </summary>
+        public static BootstrapServersConfiguration GetBootstrapConfig(this IServiceProvider sp, IConfiguration configuration)
         {
-            var section = hostContext.Configuration.GetSection(nameof(BootstrapServersConfiguration));
+            var section = configuration.GetSection(nameof(BootstrapServersConfiguration));
             var config = section.Get<BootstrapServersConfiguration>();
 
-            //TODO Move to config
+            Debug.Assert(config is not null);
 
-            var servers = string.Join(",", config.BootstrapServers);
+            var validator = sp.GetRequiredService<IValidateOptions<BootstrapServersConfiguration>>();
 
+            // Crutch to use IValidateOptions in manual generation logic.
+            var validationResult = validator.Validate(string.Empty, config);
+            if (validationResult.Failed)
+            {
+                throw new OptionsValidationException
+                    (string.Empty, typeof(BootstrapServersConfiguration), new[] { validationResult.FailureMessage });
+            }
+
+            return config;
+        }
+
+        public static void AddKafka(this IServiceCollection services, HostBuilderContext hostContext)
+        {
             services.AddSingleton<Func<GroupId, IConsumer<byte[], byte[]>>>(sp =>
             {
+                var config = sp.GetBootstrapConfig(hostContext.Configuration);
+                var servers = string.Join(",", config.BootstrapServers);
+
                 return (groupId) =>
                 {
                     return new ConsumerBuilder<byte[], byte[]>(new ConsumerConfig
@@ -87,6 +110,9 @@ namespace KafkaLagMonitor
 
             services.AddSingleton(sp =>
             {
+                var config = sp.GetBootstrapConfig(hostContext.Configuration);
+                var servers = string.Join(",", config.BootstrapServers);
+
                 return new AdminClientBuilder(new AdminClientConfig
                 {
                     BootstrapServers = servers,
