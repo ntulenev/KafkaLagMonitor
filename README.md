@@ -3,9 +3,38 @@ Kafka lag monitoring utility (initial version)
 
 Based on discussion at https://github.com/confluentinc/confluent-kafka-dotnet/issues/748
 
+Config example:
+```yaml
+  "BootstrapServersConfiguration": {
+    "BootstrapServers": [
+      "test"
+    ],
+    "Username": "user123",
+    "Password": "pwd123",
+    "SecurityProtocol": "SaslPlaintext",
+    "SASLMechanism": "ScramSha512"
+  },
+  "LagApplicationConfiguration": {
+    "Timeout": "00:00:02",
+    "Groups": [
+      "commands"
+    ]
+  }
+```
+
+| Parameter name | Description   |
+| -------------- | ------------- |
+| BootstrapServers | List of kafka cluster servers, like "kafka-test:9092"  |
+| Username | SASL username (optional)  |
+| Password | SASL password (optional)  |
+| SecurityProtocol | Protocol used to communicate with brokers (Plaintext,Ssl,SaslPlaintext,SaslSsl) (optional)  |
+| SASLMechanism | SASL mechanism to use for authentication (Gssapi,Plain,ScramSha256,ScramSha512,OAuthBearer) (optional)  |
+| Timeout | Cluster metadata loading timeout  |
+| Groups | List of Kafka groups  |
+
 Output example:
 ```
-Lag for groupId = commands
+Group - commands
  --------------------------------------------------------
  | Topic                              | Partition | Lag |
  --------------------------------------------------------
