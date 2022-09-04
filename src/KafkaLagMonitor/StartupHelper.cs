@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System.Diagnostics;
+
+using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -9,14 +12,12 @@ using Serilog;
 
 using Abstractions.Export;
 using Abstractions.Logic;
+using KafkaLagMonitor.Configuration.Validation;
+using KafkaLagMonitor.Configuration;
 using Export;
 using Logic;
 using Logic.Kafka;
 using Models;
-using KafkaLagMonitor.Configuration;
-using System.Diagnostics;
-using Microsoft.Extensions.Options;
-using KafkaLagMonitor.Configuration.Validation;
 
 namespace KafkaLagMonitor
 {
@@ -25,6 +26,7 @@ namespace KafkaLagMonitor
 
         public static void RegisterConfigs(this IServiceCollection services, HostBuilderContext hostContext)
         {
+            services.AddSingleton<IValidateOptions<LagApplicationConfiguration>, LagApplicationConfigurationValidator>();
             services.AddSingleton<IValidateOptions<BootstrapServersConfiguration>, BootstrapServersConfigurationValidator>();
             services.Configure<LagApplicationConfiguration>(hostContext.Configuration.GetSection(nameof(LagApplicationConfiguration)));
         }
