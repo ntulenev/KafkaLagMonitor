@@ -1,5 +1,4 @@
 ﻿using Confluent.Kafka;
-
 using Models;
 
 namespace Abstractions.Logic

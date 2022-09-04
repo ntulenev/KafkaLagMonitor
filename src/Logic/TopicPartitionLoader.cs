@@ -1,7 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 
-using Abstractions.Logic;
 using Confluent.Kafka;
+
+using Abstractions.Logic;
 
 namespace Logic
 {

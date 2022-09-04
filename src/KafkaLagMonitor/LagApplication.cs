@@ -1,7 +1,8 @@
-﻿using Abstractions.Export;
+﻿using Microsoft.Extensions.Options;
+
+using Abstractions.Export;
 using Abstractions.Logic;
 using KafkaLagMonitor.Configuration;
-using Microsoft.Extensions.Options;
 using Models;
 
 namespace KafkaLagMonitor
