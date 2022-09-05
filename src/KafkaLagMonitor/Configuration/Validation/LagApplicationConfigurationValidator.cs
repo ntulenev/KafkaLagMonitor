@@ -32,12 +32,12 @@ namespace KafkaLagMonitor.Configuration.Validation
                 return ValidateOptionsResult.Fail("Groups section is empty.");
             }
 
-            if (options.Groups.Any(x => String.IsNullOrEmpty(x)))
+            if (options.Groups.Any(x => string.IsNullOrEmpty(x)))
             {
                 return ValidateOptionsResult.Fail("Groups section contains empty string.");
             }
 
-            if (options.Groups.Any(x => String.IsNullOrWhiteSpace(x)))
+            if (options.Groups.Any(x => string.IsNullOrWhiteSpace(x)))
             {
                 return ValidateOptionsResult.Fail("Groups section contains empty string of whitespaces.");
             }
