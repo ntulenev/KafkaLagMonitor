@@ -42,11 +42,14 @@ namespace Logic
             var lags = topicsWithFoundOffsets.Select(tpo =>
             {
                 if (tpo.Offset.IsSpecial)
-                    return new PartitionLag(tpo.Topic, tpo.Partition.Value, tpo.Offset);
+                {
+                    return new PartitionLag(tpo);
+                }
 
                 var watermark = metadataConsumer.QueryWatermarkOffsets(tpo.TopicPartition, timeout);
 
-                return new PartitionLag(tpo.Topic, tpo.Partition.Value, watermark.High - tpo.Offset);
+                return new PartitionLag(tpo, watermark);
+
             }).ToList();
 
             _logger.LogDebug("Lags loaded. Count {count}", lags.Count);
