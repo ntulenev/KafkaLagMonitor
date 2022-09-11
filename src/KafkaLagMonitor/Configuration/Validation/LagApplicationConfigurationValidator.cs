@@ -5,8 +5,14 @@ using System.Diagnostics;
 
 namespace KafkaLagMonitor.Configuration.Validation
 {
+    /// <summary>
+    /// Validator for <see cref="LagApplicationConfiguration"/>.
+    /// </summary>
     internal class LagApplicationConfigurationValidator : IValidateOptions<LagApplicationConfiguration>
     {
+        /// <summary>
+        /// Validates <see cref="LagApplicationConfiguration"/>.
+        /// </summary>
         public ValidateOptionsResult Validate(string name, LagApplicationConfiguration options)
         {
             Debug.Assert(name is not null);

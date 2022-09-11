@@ -7,8 +7,19 @@ using Models;
 
 namespace KafkaLagMonitor
 {
+    /// <summary>
+    /// Main app. Shows lags for groups from config.
+    /// </summary>
     public class LagApplication
     {
+        /// <summary>
+        /// Creates <see cref="LagApplication"/>.
+        /// </summary>
+        /// <param name="options">Configuration.</param>
+        /// <param name="loader">Kafla lag loader.</param>
+        /// <param name="exporter">Kafka lag exporter.</param>
+        /// <exception cref="ArgumentNullException">Throws if some params not set.</exception>
+        /// <exception cref="ArgumentException">Throws if some params if not correct.</exception>
         public LagApplication(IOptions<LagApplicationConfiguration> options,
                               ILagLoader loader,
                               IExporter exporter
@@ -21,6 +32,9 @@ namespace KafkaLagMonitor
             _options = options.Value ?? throw new ArgumentException("Options value is not set", nameof(options));
         }
 
+        /// <summary>
+        /// Runs loading data from Kafka.
+        /// </summary>
         public void Run()
         {
             foreach (var groupName in _options.Groups)

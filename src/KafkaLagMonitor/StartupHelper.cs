@@ -21,9 +21,14 @@ using Models;
 
 namespace KafkaLagMonitor
 {
+    /// <summary>
+    /// Config and DI helpers
+    /// </summary>
     public static class StartupHelper
     {
-
+        /// <summary>
+        /// Register configuration DI.
+        /// </summary>
         public static void RegisterConfigs(this IServiceCollection services, HostBuilderContext hostContext)
         {
             services.AddSingleton<IValidateOptions<LagApplicationConfiguration>, LagApplicationConfigurationValidator>();
@@ -31,11 +36,18 @@ namespace KafkaLagMonitor
             services.Configure<LagApplicationConfiguration>(hostContext.Configuration.GetSection(nameof(LagApplicationConfiguration)));
         }
 
+        /// <summary>
+        /// Register config files.
+        /// </summary>
+        /// <param name="builder"></param>
         public static void RegisterApplicationSettings(this IConfigurationBuilder builder)
         {
             builder.AddJsonFile("appsettings.json", optional: true);
         }
 
+        /// <summary>
+        /// Registers logging.
+        /// </summary>
         public static void AddLogging(this IServiceCollection services, HostBuilderContext hostContext)
         {
             var logger = new LoggerConfiguration()
@@ -49,6 +61,9 @@ namespace KafkaLagMonitor
             });
         }
 
+        /// <summary>
+        /// Registers logic.
+        /// </summary>
         public static void AddAppServices(this IServiceCollection services, HostBuilderContext hostContext)
         {
             services.AddSingleton<IExporter, ConsoleTableExporter>();
@@ -81,6 +96,9 @@ namespace KafkaLagMonitor
             return config;
         }
 
+        /// <summary>
+        /// Registers Kafka.
+        /// </summary>
         public static void AddKafka(this IServiceCollection services, HostBuilderContext hostContext)
         {
             services.AddSingleton<Func<GroupId, IConsumer<byte[], byte[]>>>(sp =>

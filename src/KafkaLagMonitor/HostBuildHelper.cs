@@ -2,6 +2,9 @@
 
 namespace KafkaLagMonitor
 {
+    /// <summary>
+    /// Configuration builder helper.
+    /// </summary>
     public static class HostBuildHelper
     {
         /// <summary>
