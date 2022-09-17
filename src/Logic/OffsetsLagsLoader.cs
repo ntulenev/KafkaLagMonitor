@@ -7,8 +7,17 @@ using Models;
 
 namespace Logic
 {
+    /// <summary>
+    /// Loads partitions offsets.
+    /// </summary>
     public class OffsetsLagsLoader : IOffsetsLagsLoader
     {
+        /// <summary>
+        /// Creates <see cref="OffsetsLagsLoader"/>.
+        /// </summary>
+        /// <param name="metadataConsumerFactory">Kafka consumer factory.</param>
+        /// <param name="logger">Lpgger.</param>
+        /// <exception cref="ArgumentNullException">If factory or logger is null.</exception>
         public OffsetsLagsLoader(Func<GroupId, IConsumer<byte[], byte[]>> metadataConsumerFactory,
                                  ILogger<OffsetsLagsLoader> logger)
         {
@@ -16,6 +25,7 @@ namespace Logic
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
+        /// <inheritdoc/>
         public GroupLagResult LoadOffsetsLags(IEnumerable<TopicPartition> partitions, GroupId groupId, TimeSpan timeout)
         {
             ArgumentNullException.ThrowIfNull(partitions);

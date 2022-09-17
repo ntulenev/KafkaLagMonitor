@@ -3,8 +3,17 @@ using Models;
 
 namespace Logic
 {
+    /// <summary>
+    /// Loader for for Kafka lags info.
+    /// </summary>
     public class LagLoader : ILagLoader
     {
+        /// <summary>
+        /// Creates <see cref="=LagLoader"/>.
+        /// </summary>
+        /// <param name="offsetLoader">Offset loader.</param>
+        /// <param name="topicLoader">Topic loader.</param>
+        /// <exception cref="ArgumentNullException"></exception>
         public LagLoader(IOffsetsLagsLoader offsetLoader,
                          ITopicPartitionLoader topicLoader
                         )
@@ -12,6 +21,8 @@ namespace Logic
             _offsetLoader = offsetLoader ?? throw new ArgumentNullException(nameof(offsetLoader));
             _topicLoader = topicLoader ?? throw new ArgumentNullException(nameof(topicLoader));
         }
+
+        /// <inheritdoc/>
         public GroupLagResult LoadOffsetsLags(GroupId groupId, TimeSpan timeout)
         {
             ArgumentNullException.ThrowIfNull(groupId);

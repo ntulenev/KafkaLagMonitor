@@ -6,14 +6,25 @@ using Abstractions.Logic;
 
 namespace Logic
 {
+    /// <summary>
+    /// Kafka partitions loader.
+    /// </summary>
     public class TopicPartitionLoader : ITopicPartitionLoader
     {
+        /// <summary>
+        /// Creates <see cref="TopicPartitionLoader"/>.
+        /// </summary>
+        /// <param name="adminClient">Kafka admin client.</param>
+        /// <param name="logger">Logger.</param>
+        /// <exception cref="ArgumentNullException"></exception>
         public TopicPartitionLoader(IAdminClient adminClient,
                                     ILogger<TopicPartitionLoader> logger)
         {
             _adminClient = adminClient ?? throw new ArgumentNullException(nameof(adminClient));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
+
+        /// <inheritdoc/>
         public IReadOnlyCollection<TopicPartition> LoadPartitions(TimeSpan timeout)
         {
             _logger.LogDebug("Starting load partitions");
