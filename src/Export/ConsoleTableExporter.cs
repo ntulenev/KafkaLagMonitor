@@ -6,8 +6,15 @@ using ConsoleTables;
 
 namespace Export
 {
+    /// <summary>
+    /// Simple console result exporter.
+    /// </summary>
     public class ConsoleTableExporter : IExporter
     {
+        /// <summary>
+        /// Exports <see cref="GroupLagResult"/> to Cosnole.
+        /// </summary>
+        /// <param name="data">Reulst data.</param>
         public void Export(GroupLagResult data)
         {
             ArgumentNullException.ThrowIfNull(data);
