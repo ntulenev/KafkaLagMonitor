@@ -1,4 +1,6 @@
-﻿namespace KafkaLagMonitor.Configuration
+﻿using Models;
+
+namespace KafkaLagMonitor.Configuration
 {
     /// <summary>
     /// Lag application configuration.
@@ -14,5 +16,10 @@
         /// Offsets request timeout.
         /// </summary>
         public TimeSpan Timeout { get; set; }
+
+        /// <summary>
+        /// Gets Group Ids.
+        /// </summary>
+        public IReadOnlyCollection<GroupId> GetGroups() => Groups.Select(x => new GroupId(x)).ToList();
     }
 }
