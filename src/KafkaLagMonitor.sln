@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logic", "Logic\Logic.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Export", "Export\Export.csproj", "{E1697F37-10FD-44F2-B957-D9D9FCE2B0D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{8E6CF04A-C872-44B6-876C-85E285FCC79A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csproj", "{8E6CF04A-C872-44B6-876C-85E285FCC79A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models.Tests", "Models.Tests\Models.Tests.csproj", "{6418C2D6-8519-496D-B1A6-60BB0A9E3C65}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,14 @@ Global
 		{8E6CF04A-C872-44B6-876C-85E285FCC79A}.Release|x64.Build.0 = Release|x64
 		{8E6CF04A-C872-44B6-876C-85E285FCC79A}.Release|x64.ActiveCfg = Release|x64
 		{8E6CF04A-C872-44B6-876C-85E285FCC79A}.Release|x64.Build.0 = Release|x64
+		{6418C2D6-8519-496D-B1A6-60BB0A9E3C65}.Debug|x64.ActiveCfg = Debug|x64
+		{6418C2D6-8519-496D-B1A6-60BB0A9E3C65}.Debug|x64.Build.0 = Debug|x64
+		{6418C2D6-8519-496D-B1A6-60BB0A9E3C65}.Debug|x64.ActiveCfg = Debug|x64
+		{6418C2D6-8519-496D-B1A6-60BB0A9E3C65}.Debug|x64.Build.0 = Debug|x64
+		{6418C2D6-8519-496D-B1A6-60BB0A9E3C65}.Release|x64.ActiveCfg = Release|x64
+		{6418C2D6-8519-496D-B1A6-60BB0A9E3C65}.Release|x64.Build.0 = Release|x64
+		{6418C2D6-8519-496D-B1A6-60BB0A9E3C65}.Release|x64.ActiveCfg = Release|x64
+		{6418C2D6-8519-496D-B1A6-60BB0A9E3C65}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
