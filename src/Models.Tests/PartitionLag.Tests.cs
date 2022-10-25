@@ -41,5 +41,45 @@ namespace Models.Tests
             // Assert
             exception.Should().NotBeNull().And.BeOfType<InvalidOperationException>();
         }
+
+        [Fact]
+        public void PartitionLagCanBeCreatedWithoutSpecialOffsetAndWatermark()
+        {
+            // Arrange
+            var topOffset = 20;
+            var lowOffset = 5;
+            var topicName = "123";
+            var partitionId = 42;
+            var partition = new Confluent.Kafka.TopicPartition(topicName, new Confluent.Kafka.Partition(partitionId));
+            var offset = new Confluent.Kafka.TopicPartitionOffset(partition, lowOffset);
+            var wm = new Confluent.Kafka.WatermarkOffsets(new Confluent.Kafka.Offset(1), new Confluent.Kafka.Offset(topOffset));
+
+            // Act
+            var lag = new PartitionLag(offset, wm);
+
+            // Assert
+            lag.Topic.Should().Be(topicName);
+            lag.PartitionId.Should().Be(partitionId);
+            lag.Lag.Should().Be(15);
+        }
+
+
+        [Fact]
+        public void PartitionLagCantBeCreatedWithSpecialOffsetAndWatermark()
+        {
+            // Arrange
+            var topOffset = 20;
+            var topicName = "123";
+            var partitionId = 42;
+            var partition = new Confluent.Kafka.TopicPartition(topicName, new Confluent.Kafka.Partition(partitionId));
+            var offset = new Confluent.Kafka.TopicPartitionOffset(partition, Confluent.Kafka.Offset.Beginning);
+            var wm = new Confluent.Kafka.WatermarkOffsets(new Confluent.Kafka.Offset(1), new Confluent.Kafka.Offset(topOffset));
+
+            // Act
+            var exception = Record.Exception(() => new PartitionLag(offset, wm));
+
+            // Assert
+            exception.Should().NotBeNull().And.BeOfType<InvalidOperationException>();
+        }
     }
 }
