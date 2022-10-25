@@ -43,6 +43,18 @@ namespace Models.Tests
         }
 
         [Fact]
+        public void PartitionLagCantBeCreatedWithNullOffset()
+        {
+            // Arrange
+
+            // Act
+            var exception = Record.Exception(() => new PartitionLag(null!));
+
+            // Assert
+            exception.Should().NotBeNull().And.BeOfType<ArgumentNullException>();
+        }
+
+        [Fact]
         public void PartitionLagCanBeCreatedWithoutSpecialOffsetAndWatermark()
         {
             // Arrange
@@ -80,6 +92,35 @@ namespace Models.Tests
 
             // Assert
             exception.Should().NotBeNull().And.BeOfType<InvalidOperationException>();
+        }
+
+        [Fact]
+        public void PartitionLagCantBeCreatedWithNullOffsetAndCorrectWatermark()
+        {
+            // Arrange
+            var wm = new Confluent.Kafka.WatermarkOffsets(new Confluent.Kafka.Offset(1), new Confluent.Kafka.Offset(2));
+
+            // Act
+            var exception = Record.Exception(() => new PartitionLag(null!, wm));
+
+            // Assert
+            exception.Should().NotBeNull().And.BeOfType<ArgumentNullException>();
+        }
+
+        [Fact]
+        public void PartitionLagCantBeCreatedWithCorrectOffsetAndNullWatermark()
+        {
+            // Arrange
+            var topicName = "123";
+            var partitionId = 42;
+            var partition = new Confluent.Kafka.TopicPartition(topicName, new Confluent.Kafka.Partition(partitionId));
+            var offset = new Confluent.Kafka.TopicPartitionOffset(partition, Confluent.Kafka.Offset.Beginning);
+
+            // Act
+            var exception = Record.Exception(() => new PartitionLag(offset, null!));
+
+            // Assert
+            exception.Should().NotBeNull().And.BeOfType<ArgumentNullException>();
         }
     }
 }
