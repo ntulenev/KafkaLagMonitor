@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models.Tests", "Models.Tests\Models.Tests.csproj", "{6418C2D6-8519-496D-B1A6-60BB0A9E3C65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Export.Tests", "Export.Tests\Export.Tests.csproj", "{8279377B-974F-42E4-A8B1-9652D6C63F79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Export.Tests", "Export.Tests\Export.Tests.csproj", "{8279377B-974F-42E4-A8B1-9652D6C63F79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logic.Tests", "Logic.Tests\Logic.Tests.csproj", "{1D649226-3698-4FD1-BF02-CB220446B6D2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,14 @@ Global
 		{8279377B-974F-42E4-A8B1-9652D6C63F79}.Release|x64.Build.0 = Release|x64
 		{8279377B-974F-42E4-A8B1-9652D6C63F79}.Release|x64.ActiveCfg = Release|x64
 		{8279377B-974F-42E4-A8B1-9652D6C63F79}.Release|x64.Build.0 = Release|x64
+		{1D649226-3698-4FD1-BF02-CB220446B6D2}.Debug|x64.ActiveCfg = Debug|x64
+		{1D649226-3698-4FD1-BF02-CB220446B6D2}.Debug|x64.Build.0 = Debug|x64
+		{1D649226-3698-4FD1-BF02-CB220446B6D2}.Debug|x64.ActiveCfg = Debug|x64
+		{1D649226-3698-4FD1-BF02-CB220446B6D2}.Debug|x64.Build.0 = Debug|x64
+		{1D649226-3698-4FD1-BF02-CB220446B6D2}.Release|x64.ActiveCfg = Release|x64
+		{1D649226-3698-4FD1-BF02-CB220446B6D2}.Release|x64.Build.0 = Release|x64
+		{1D649226-3698-4FD1-BF02-CB220446B6D2}.Release|x64.ActiveCfg = Release|x64
+		{1D649226-3698-4FD1-BF02-CB220446B6D2}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
