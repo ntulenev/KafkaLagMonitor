@@ -1,45 +1,44 @@
-namespace Models.Tests
+namespace Models.Tests;
+
+public class GroupIdTests
 {
-    public class GroupIdTests
+    [Fact]
+    public void GroupIdCanBeCreated()
     {
-        [Fact]
-        public void GroupIdCanBeCreated()
-        {
-            // Arrange
-            var name = "test";
+        // Arrange
+        var name = "test";
 
-            // Act
-            var groupId = new GroupId(name);
+        // Act
+        var groupId = new GroupId(name);
 
-            // Assert
-            groupId.Value.Should().Be(name);
-        }
+        // Assert
+        groupId.Value.Should().Be(name);
+    }
 
-        [Theory]
-        [InlineData((string)null!)]
-        [InlineData("")]
-        public void GroupIdCantBeCreatedWithNullOrEmpty(string data)
-        {
-            // Arrange
+    [Theory]
+    [InlineData((string)null!)]
+    [InlineData("")]
+    public void GroupIdCantBeCreatedWithNullOrEmpty(string data)
+    {
+        // Arrange
 
-            // Act
-            var exception = Record.Exception(() => new GroupId(data));
+        // Act
+        var exception = Record.Exception(() => new GroupId(data));
 
-            // Assert
-            exception.Should().NotBeNull().And.BeOfType<ArgumentNullException>();
-        }
+        // Assert
+        exception.Should().NotBeNull().And.BeOfType<ArgumentNullException>();
+    }
 
-        [Fact]
-        public void GroupIdCantBeCreatedWithNameOfSpaces()
-        {
-            // Arrange
-            var name = "     ";
+    [Fact]
+    public void GroupIdCantBeCreatedWithNameOfSpaces()
+    {
+        // Arrange
+        var name = "     ";
 
-            // Act
-            var exception = Record.Exception(() => new GroupId(name));
+        // Act
+        var exception = Record.Exception(() => new GroupId(name));
 
-            // Assert
-            exception.Should().NotBeNull().And.BeOfType<ArgumentException>();
-        }
+        // Assert
+        exception.Should().NotBeNull().And.BeOfType<ArgumentException>();
     }
 }

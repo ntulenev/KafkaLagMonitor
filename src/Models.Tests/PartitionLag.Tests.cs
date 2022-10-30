@@ -1,120 +1,119 @@
-﻿namespace Models.Tests
+﻿namespace Models.Tests;
+
+public class PartitionLagTests
 {
-    public class PartitionLagTests
+    [Fact]
+    public void PartitionLagCanBeCreatedWithSpecialOffset()
     {
-        [Fact]
-        public void PartitionLagCanBeCreatedWithSpecialOffset()
-        {
-            // Arrange
-            var topicName = "123";
-            var partitionId = 42;
-            var partition = new Confluent.Kafka.TopicPartition(topicName, new Confluent.Kafka.Partition(partitionId));
-            var offset = new Confluent.Kafka.TopicPartitionOffset(partition, Confluent.Kafka.Offset.Beginning);
+        // Arrange
+        var topicName = "123";
+        var partitionId = 42;
+        var partition = new Confluent.Kafka.TopicPartition(topicName, new Confluent.Kafka.Partition(partitionId));
+        var offset = new Confluent.Kafka.TopicPartitionOffset(partition, Confluent.Kafka.Offset.Beginning);
 
-            // Act
-            var lag = new PartitionLag(offset);
+        // Act
+        var lag = new PartitionLag(offset);
 
-            // Assert
-            lag.Topic.Should().Be(topicName);
-            lag.PartitionId.Should().Be(partitionId);
-            lag.Lag.Should().Be(Confluent.Kafka.Offset.Beginning);
-        }
+        // Assert
+        lag.Topic.Should().Be(topicName);
+        lag.PartitionId.Should().Be(partitionId);
+        lag.Lag.Should().Be(Confluent.Kafka.Offset.Beginning);
+    }
 
-        [Fact]
-        public void PartitionLagCantBeCreatedWithNonSpecialOffsetAndNoWatermark()
-        {
-            // Arrange
-            var topicName = "123";
-            var partitionId = 42;
-            var partition = new Confluent.Kafka.TopicPartition(topicName, new Confluent.Kafka.Partition(partitionId));
-            var offset = new Confluent.Kafka.TopicPartitionOffset(partition, new Confluent.Kafka.Offset(1));
+    [Fact]
+    public void PartitionLagCantBeCreatedWithNonSpecialOffsetAndNoWatermark()
+    {
+        // Arrange
+        var topicName = "123";
+        var partitionId = 42;
+        var partition = new Confluent.Kafka.TopicPartition(topicName, new Confluent.Kafka.Partition(partitionId));
+        var offset = new Confluent.Kafka.TopicPartitionOffset(partition, new Confluent.Kafka.Offset(1));
 
-            // Act
-            var exception = Record.Exception(() => new PartitionLag(offset));
+        // Act
+        var exception = Record.Exception(() => new PartitionLag(offset));
 
-            // Assert
-            exception.Should().NotBeNull().And.BeOfType<InvalidOperationException>();
-        }
+        // Assert
+        exception.Should().NotBeNull().And.BeOfType<InvalidOperationException>();
+    }
 
-        [Fact]
-        public void PartitionLagCantBeCreatedWithNullOffset()
-        {
-            // Arrange
+    [Fact]
+    public void PartitionLagCantBeCreatedWithNullOffset()
+    {
+        // Arrange
 
-            // Act
-            var exception = Record.Exception(() => new PartitionLag(null!));
+        // Act
+        var exception = Record.Exception(() => new PartitionLag(null!));
 
-            // Assert
-            exception.Should().NotBeNull().And.BeOfType<ArgumentNullException>();
-        }
+        // Assert
+        exception.Should().NotBeNull().And.BeOfType<ArgumentNullException>();
+    }
 
-        [Fact]
-        public void PartitionLagCanBeCreatedWithoutSpecialOffsetAndWatermark()
-        {
-            // Arrange
-            var topOffset = 20;
-            var lowOffset = 5;
-            var topicName = "123";
-            var partitionId = 42;
-            var partition = new Confluent.Kafka.TopicPartition(topicName, new Confluent.Kafka.Partition(partitionId));
-            var offset = new Confluent.Kafka.TopicPartitionOffset(partition, lowOffset);
-            var wm = new Confluent.Kafka.WatermarkOffsets(new Confluent.Kafka.Offset(1), new Confluent.Kafka.Offset(topOffset));
+    [Fact]
+    public void PartitionLagCanBeCreatedWithoutSpecialOffsetAndWatermark()
+    {
+        // Arrange
+        var topOffset = 20;
+        var lowOffset = 5;
+        var topicName = "123";
+        var partitionId = 42;
+        var partition = new Confluent.Kafka.TopicPartition(topicName, new Confluent.Kafka.Partition(partitionId));
+        var offset = new Confluent.Kafka.TopicPartitionOffset(partition, lowOffset);
+        var wm = new Confluent.Kafka.WatermarkOffsets(new Confluent.Kafka.Offset(1), new Confluent.Kafka.Offset(topOffset));
 
-            // Act
-            var lag = new PartitionLag(offset, wm);
+        // Act
+        var lag = new PartitionLag(offset, wm);
 
-            // Assert
-            lag.Topic.Should().Be(topicName);
-            lag.PartitionId.Should().Be(partitionId);
-            lag.Lag.Should().Be(15);
-        }
+        // Assert
+        lag.Topic.Should().Be(topicName);
+        lag.PartitionId.Should().Be(partitionId);
+        lag.Lag.Should().Be(15);
+    }
 
 
-        [Fact]
-        public void PartitionLagCantBeCreatedWithSpecialOffsetAndWatermark()
-        {
-            // Arrange
-            var topOffset = 20;
-            var topicName = "123";
-            var partitionId = 42;
-            var partition = new Confluent.Kafka.TopicPartition(topicName, new Confluent.Kafka.Partition(partitionId));
-            var offset = new Confluent.Kafka.TopicPartitionOffset(partition, Confluent.Kafka.Offset.Beginning);
-            var wm = new Confluent.Kafka.WatermarkOffsets(new Confluent.Kafka.Offset(1), new Confluent.Kafka.Offset(topOffset));
+    [Fact]
+    public void PartitionLagCantBeCreatedWithSpecialOffsetAndWatermark()
+    {
+        // Arrange
+        var topOffset = 20;
+        var topicName = "123";
+        var partitionId = 42;
+        var partition = new Confluent.Kafka.TopicPartition(topicName, new Confluent.Kafka.Partition(partitionId));
+        var offset = new Confluent.Kafka.TopicPartitionOffset(partition, Confluent.Kafka.Offset.Beginning);
+        var wm = new Confluent.Kafka.WatermarkOffsets(new Confluent.Kafka.Offset(1), new Confluent.Kafka.Offset(topOffset));
 
-            // Act
-            var exception = Record.Exception(() => new PartitionLag(offset, wm));
+        // Act
+        var exception = Record.Exception(() => new PartitionLag(offset, wm));
 
-            // Assert
-            exception.Should().NotBeNull().And.BeOfType<InvalidOperationException>();
-        }
+        // Assert
+        exception.Should().NotBeNull().And.BeOfType<InvalidOperationException>();
+    }
 
-        [Fact]
-        public void PartitionLagCantBeCreatedWithNullOffsetAndCorrectWatermark()
-        {
-            // Arrange
-            var wm = new Confluent.Kafka.WatermarkOffsets(new Confluent.Kafka.Offset(1), new Confluent.Kafka.Offset(2));
+    [Fact]
+    public void PartitionLagCantBeCreatedWithNullOffsetAndCorrectWatermark()
+    {
+        // Arrange
+        var wm = new Confluent.Kafka.WatermarkOffsets(new Confluent.Kafka.Offset(1), new Confluent.Kafka.Offset(2));
 
-            // Act
-            var exception = Record.Exception(() => new PartitionLag(null!, wm));
+        // Act
+        var exception = Record.Exception(() => new PartitionLag(null!, wm));
 
-            // Assert
-            exception.Should().NotBeNull().And.BeOfType<ArgumentNullException>();
-        }
+        // Assert
+        exception.Should().NotBeNull().And.BeOfType<ArgumentNullException>();
+    }
 
-        [Fact]
-        public void PartitionLagCantBeCreatedWithCorrectOffsetAndNullWatermark()
-        {
-            // Arrange
-            var topicName = "123";
-            var partitionId = 42;
-            var partition = new Confluent.Kafka.TopicPartition(topicName, new Confluent.Kafka.Partition(partitionId));
-            var offset = new Confluent.Kafka.TopicPartitionOffset(partition, Confluent.Kafka.Offset.Beginning);
+    [Fact]
+    public void PartitionLagCantBeCreatedWithCorrectOffsetAndNullWatermark()
+    {
+        // Arrange
+        var topicName = "123";
+        var partitionId = 42;
+        var partition = new Confluent.Kafka.TopicPartition(topicName, new Confluent.Kafka.Partition(partitionId));
+        var offset = new Confluent.Kafka.TopicPartitionOffset(partition, Confluent.Kafka.Offset.Beginning);
 
-            // Act
-            var exception = Record.Exception(() => new PartitionLag(offset, null!));
+        // Act
+        var exception = Record.Exception(() => new PartitionLag(offset, null!));
 
-            // Assert
-            exception.Should().NotBeNull().And.BeOfType<ArgumentNullException>();
-        }
+        // Assert
+        exception.Should().NotBeNull().And.BeOfType<ArgumentNullException>();
     }
 }

@@ -1,46 +1,45 @@
-﻿namespace Models.Tests
+﻿namespace Models.Tests;
+
+public class GroupLagResultTests
 {
-    public class GroupLagResultTests
+    [Fact]
+    public void GroupLagResultCanBeCreated()
     {
-        [Fact]
-        public void GroupLagResultCanBeCreated()
-        {
-            // Arrange
-            var groupId = new GroupId("1");
-            var lags = Enumerable.Empty<PartitionLag>();
+        // Arrange
+        var groupId = new GroupId("1");
+        var lags = Enumerable.Empty<PartitionLag>();
 
-            // Act
-            var result = new GroupLagResult(groupId, lags);
+        // Act
+        var result = new GroupLagResult(groupId, lags);
 
-            // Assert
-            result.Group.Should().Be(groupId);
-            (result.Lags == lags).Should().BeTrue();
-        }
+        // Assert
+        result.Group.Should().Be(groupId);
+        (result.Lags == lags).Should().BeTrue();
+    }
 
-        [Fact]
-        public void GroupLagResultCantBeCreatedWithNullGroupId()
-        {
-            // Arrange
-            var lags = Enumerable.Empty<PartitionLag>();
+    [Fact]
+    public void GroupLagResultCantBeCreatedWithNullGroupId()
+    {
+        // Arrange
+        var lags = Enumerable.Empty<PartitionLag>();
 
-            // Act
-            var exception = Record.Exception(() => new GroupLagResult(null!, lags));
+        // Act
+        var exception = Record.Exception(() => new GroupLagResult(null!, lags));
 
-            // Assert
-            exception.Should().NotBeNull().And.BeOfType<ArgumentNullException>();
-        }
+        // Assert
+        exception.Should().NotBeNull().And.BeOfType<ArgumentNullException>();
+    }
 
-        [Fact]
-        public void GroupLagResultCantBeCreatedWithNullLags()
-        {
-            // Arrange
-            var groupId = new GroupId("1");
+    [Fact]
+    public void GroupLagResultCantBeCreatedWithNullLags()
+    {
+        // Arrange
+        var groupId = new GroupId("1");
 
-            // Act
-            var exception = Record.Exception(() => new GroupLagResult(groupId, null!));
+        // Act
+        var exception = Record.Exception(() => new GroupLagResult(groupId, null!));
 
-            // Assert
-            exception.Should().NotBeNull().And.BeOfType<ArgumentNullException>();
-        }
+        // Assert
+        exception.Should().NotBeNull().And.BeOfType<ArgumentNullException>();
     }
 }

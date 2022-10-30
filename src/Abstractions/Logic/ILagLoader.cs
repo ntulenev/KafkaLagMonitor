@@ -1,18 +1,17 @@
 ﻿using Models;
 
-namespace Abstractions.Logic
+namespace Abstractions.Logic;
+
+/// <summary>
+/// Kafka lag loader.
+/// </summary>
+public interface ILagLoader
 {
     /// <summary>
-    /// Kafka lag loader.
+    /// Loads lags for group.
     /// </summary>
-    public interface ILagLoader
-    {
-        /// <summary>
-        /// Loads lags for group.
-        /// </summary>
-        /// <param name="groupId">GroupId.</param>
-        /// <param name="timeout">Load timeout.</param>
-        /// <returns>Lags for group.</returns>
-        public GroupLagResult LoadOffsetsLags(GroupId groupId, TimeSpan timeout);
-    }
+    /// <param name="groupId">GroupId.</param>
+    /// <param name="timeout">Load timeout.</param>
+    /// <returns>Lags for group.</returns>
+    public GroupLagResult LoadOffsetsLags(GroupId groupId, TimeSpan timeout);
 }
