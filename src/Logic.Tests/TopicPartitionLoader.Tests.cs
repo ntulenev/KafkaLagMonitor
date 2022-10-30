@@ -1,7 +1,5 @@
 ﻿using Confluent.Kafka;
 
-using FluentAssertions;
-
 using Microsoft.Extensions.Logging;
 
 using Moq;

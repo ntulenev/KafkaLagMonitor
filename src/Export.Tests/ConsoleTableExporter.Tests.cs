@@ -1,6 +1,4 @@
-﻿using FluentAssertions;
-
-namespace Export.Tests
+﻿namespace Export.Tests
 {
     public class ConsoleTableExporterTests
     {
