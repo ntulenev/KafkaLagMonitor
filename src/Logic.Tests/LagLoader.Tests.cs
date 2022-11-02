@@ -1,6 +1,7 @@
-﻿using Abstractions.Logic;
-using Confluent.Kafka;
+﻿using Confluent.Kafka;
+
 using Models;
+using Abstractions.Logic;
 
 namespace Logic.Tests;
 
