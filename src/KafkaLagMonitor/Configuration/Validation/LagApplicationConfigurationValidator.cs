@@ -8,7 +8,7 @@ namespace KafkaLagMonitor.Configuration.Validation;
 /// <summary>
 /// Validator for <see cref="LagApplicationConfiguration"/>.
 /// </summary>
-internal class LagApplicationConfigurationValidator : IValidateOptions<LagApplicationConfiguration>
+public class LagApplicationConfigurationValidator : IValidateOptions<LagApplicationConfiguration>
 {
     /// <summary>
     /// Validates <see cref="LagApplicationConfiguration"/>.
@@ -21,11 +21,6 @@ internal class LagApplicationConfigurationValidator : IValidateOptions<LagApplic
         if (options.Timeout == TimeSpan.Zero)
         {
             return ValidateOptionsResult.Fail("Timeout could not be zero.");
-        }
-
-        if (options.Groups == null)
-        {
-            return ValidateOptionsResult.Fail("Groups must be set.");
         }
 
         if (options.Groups is null)
