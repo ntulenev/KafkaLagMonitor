@@ -18,19 +18,6 @@ public class GroupLagResultTests
     }
 
     [Fact]
-    public void GroupLagResultCantBeCreatedWithNullGroupId()
-    {
-        // Arrange
-        var lags = Enumerable.Empty<PartitionLag>();
-
-        // Act
-        var exception = Record.Exception(() => new GroupLagResult(null!, lags));
-
-        // Assert
-        exception.Should().NotBeNull().And.BeOfType<ArgumentNullException>();
-    }
-
-    [Fact]
     public void GroupLagResultCantBeCreatedWithNullLags()
     {
         // Arrange

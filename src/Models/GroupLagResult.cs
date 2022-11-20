@@ -4,7 +4,7 @@ public class GroupLagResult
 {
     public GroupLagResult(GroupId group, IEnumerable<PartitionLag> lags)
     {
-        Group = group ?? throw new ArgumentNullException(nameof(group));
+        Group = group;
         Lags = lags ?? throw new ArgumentNullException(nameof(lags));
     }
 

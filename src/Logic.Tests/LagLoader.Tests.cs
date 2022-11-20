@@ -48,22 +48,6 @@ public class LagLoaderTests
     }
 
     [Fact]
-    public void LadLoaderCantLoadForNullGroupId()
-    {
-        // Arrange
-        var offsetLoader = Mock.Of<IOffsetsLagsLoader>(MockBehavior.Strict);
-        var topicLoader = Mock.Of<ITopicPartitionLoader>(MockBehavior.Strict);
-        var loader = new LagLoader(offsetLoader, topicLoader);
-        var timeSpan = TimeSpan.FromSeconds(1);
-
-        // Act
-        var exception = Record.Exception(() => loader.LoadOffsetsLags(null!, timeSpan));
-
-        // Assert
-        exception.Should().NotBeNull().And.BeOfType<ArgumentNullException>();
-    }
-
-    [Fact]
     public void LadLoaderCanLoadData()
     {
         // Arrange
