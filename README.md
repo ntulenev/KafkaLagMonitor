@@ -1,5 +1,5 @@
 # KafkaLagMonitor
-Kafka lag monitoring utility (initial version)
+Kafka lag monitoring utility
 
 Based on discussion at https://github.com/confluentinc/confluent-kafka-dotnet/issues/748
 
