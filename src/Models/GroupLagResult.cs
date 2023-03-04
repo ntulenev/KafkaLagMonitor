@@ -9,6 +9,5 @@ public class GroupLagResult
     }
 
     public GroupId Group { get; }
-
     public IEnumerable<PartitionLag> Lags { get; }
 }

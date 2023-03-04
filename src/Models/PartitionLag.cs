@@ -34,8 +34,6 @@ public class PartitionLag
     }
 
     public string Topic { get; }
-
     public int PartitionId { get; }
-
     public long Lag { get; }
 }

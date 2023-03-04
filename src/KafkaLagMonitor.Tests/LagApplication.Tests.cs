@@ -4,7 +4,6 @@ using Abstractions.Export;
 using Abstractions.Logic;
 using KafkaLagMonitor.Configuration;
 using Models;
-using Confluent.Kafka;
 
 namespace KafkaLagMonitor.Tests;
 
