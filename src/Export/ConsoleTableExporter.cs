@@ -7,14 +7,13 @@ using ConsoleTables;
 namespace Export;
 
 /// <summary>
-/// Simple console result exporter.
+/// A class that exports the GroupLagResult data to the console in tabular format.
 /// </summary>
 public class ConsoleTableExporter : IExporter
 {
-    /// <summary>
-    /// Exports <see cref="GroupLagResult"/> to Cosnole.
-    /// </summary>
-    /// <param name="data">Reulst data.</param>
+
+    /// <inheritdoc/>
+    /// <exception cref="ArgumentNullException">Thrown when data is null.</exception>
     public void Export(GroupLagResult data)
     {
         ArgumentNullException.ThrowIfNull(data);
