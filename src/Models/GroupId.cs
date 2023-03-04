@@ -1,6 +1,6 @@
 ﻿namespace Models;
 
-public record struct GroupId
+public readonly record struct GroupId
 {
     public GroupId(string value)
     {
