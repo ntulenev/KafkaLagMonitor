@@ -29,11 +29,11 @@ public static class StartupHelper
     /// <summary>
     /// Register configuration DI.
     /// </summary>
-    public static void RegisterConfigs(this IServiceCollection services, HostBuilderContext hostContext)
+    public static void RegisterConfigs(this IServiceCollection services, IConfiguration config)
     {
         services.AddSingleton<IValidateOptions<LagApplicationConfiguration>, LagApplicationConfigurationValidator>();
         services.AddSingleton<IValidateOptions<BootstrapServersConfiguration>, BootstrapServersConfigurationValidator>();
-        services.Configure<LagApplicationConfiguration>(hostContext.Configuration.GetSection(nameof(LagApplicationConfiguration)));
+        services.Configure<LagApplicationConfiguration>(config.GetSection(nameof(LagApplicationConfiguration)));
     }
 
     /// <summary>
@@ -48,10 +48,10 @@ public static class StartupHelper
     /// <summary>
     /// Registers logging.
     /// </summary>
-    public static void AddLogging(this IServiceCollection services, HostBuilderContext hostContext)
+    public static void AddLogging(this IServiceCollection services, IConfiguration config)
     {
         var logger = new LoggerConfiguration()
-                         .ReadFrom.Configuration(hostContext.Configuration)
+                         .ReadFrom.Configuration(config)
                          .CreateLogger();
 
         services.AddLogging(x =>
@@ -64,7 +64,7 @@ public static class StartupHelper
     /// <summary>
     /// Registers logic.
     /// </summary>
-    public static void AddAppServices(this IServiceCollection services, HostBuilderContext hostContext)
+    public static void AddAppServices(this IServiceCollection services)
     {
         services.AddSingleton<IExporter, ConsoleTableExporter>();
         services.AddSingleton<IOffsetsLagsLoader, OffsetsLagsLoader>();
@@ -99,11 +99,11 @@ public static class StartupHelper
     /// <summary>
     /// Registers Kafka.
     /// </summary>
-    public static void AddKafka(this IServiceCollection services, HostBuilderContext hostContext)
+    public static void AddKafka(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddSingleton<Func<GroupId, IConsumer<byte[], byte[]>>>(sp =>
         {
-            var config = sp.GetBootstrapConfig(hostContext.Configuration);
+            var config = sp.GetBootstrapConfig(configuration);
             var servers = string.Join(",", config.BootstrapServers);
 
             return (groupId) =>
@@ -130,7 +130,7 @@ public static class StartupHelper
 
         services.AddSingleton(sp =>
         {
-            var config = sp.GetBootstrapConfig(hostContext.Configuration);
+            var config = sp.GetBootstrapConfig(configuration);
             var servers = string.Join(",", config.BootstrapServers);
 
             return new AdminClientBuilder(new AdminClientConfig
