@@ -18,8 +18,17 @@ public class ConsoleTableExporter : IExporter
     {
         ArgumentNullException.ThrowIfNull(data);
 
-        Console.WriteLine($"Group - {data.Group.Value}");
+        BuildTitle(data);
+        FillTable(data);
+    }
 
+    private static void BuildTitle(GroupLagResult data)
+    {
+        Console.WriteLine($"Group - {data.Group.Value}");
+    }
+
+    private static void FillTable(GroupLagResult data)
+    {
         var table = new ConsoleTable("Topic", "Partition", "Lag");
 
         foreach (var item in data.Lags)
