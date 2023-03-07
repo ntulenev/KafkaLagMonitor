@@ -26,15 +26,16 @@ public class LagApplication
                           )
     {
         ArgumentNullException.ThrowIfNull(options);
-
-        _loader = loader ?? throw new ArgumentNullException(nameof(loader));
-        _exporter = exporter ?? throw new ArgumentNullException(nameof(exporter));
+        ArgumentNullException.ThrowIfNull(loader);
+        ArgumentNullException.ThrowIfNull(exporter);
 
         if (options.Value is null)
         {
             throw new ArgumentException("Options value is not set", nameof(options));
         }
 
+        _loader = loader;
+        _exporter = exporter;
         _timeout = options.Value.Timeout;
         _groups = options.Value.GetGroups();
     }
@@ -46,8 +47,6 @@ public class LagApplication
     {
         foreach (var group in _groups)
         {
-            Console.WriteLine(group.Value);
-
             var lags = _loader.LoadOffsetsLags(group, _timeout);
             _exporter.Export(lags);
         }
