@@ -15,18 +15,28 @@ public class GroupIdTests
         groupId.Value.Should().Be(name);
     }
 
-    [Theory]
-    [InlineData((string)null!)]
-    [InlineData("")]
-    public void GroupIdCantBeCreatedWithNullOrEmpty(string data)
+    [Fact]
+    public void GroupIdCantBeCreatedWithNull()
     {
         // Arrange
 
         // Act
-        var exception = Record.Exception(() => new GroupId(data));
+        var exception = Record.Exception(() => new GroupId(null!));
 
         // Assert
         exception.Should().NotBeNull().And.BeOfType<ArgumentNullException>();
+    }
+
+    [Fact]
+    public void GroupIdCantBeCreatedWithEmpty()
+    {
+        // Arrange
+
+        // Act
+        var exception = Record.Exception(() => new GroupId(""));
+
+        // Assert
+        exception.Should().NotBeNull().And.BeOfType<ArgumentException>();
     }
 
     [Fact]

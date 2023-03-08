@@ -4,10 +4,7 @@ public readonly record struct GroupId
 {
     public GroupId(string value)
     {
-        if (string.IsNullOrEmpty(value))
-        {
-            throw new ArgumentNullException(nameof(value));
-        }
+        ArgumentException.ThrowIfNullOrEmpty(value);
 
         if (string.IsNullOrWhiteSpace(value))
         {
