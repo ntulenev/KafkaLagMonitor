@@ -25,8 +25,6 @@ public class LagLoader : ILagLoader
     /// <inheritdoc/>
     public GroupLagResult LoadOffsetsLags(GroupId groupId, TimeSpan timeout)
     {
-        ArgumentNullException.ThrowIfNull(groupId);
-
         var partitions = _topicLoader.LoadPartitions(timeout);
         return _offsetLoader.LoadOffsetsLags(partitions, groupId, timeout);
     }

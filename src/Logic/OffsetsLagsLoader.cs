@@ -16,7 +16,7 @@ public class OffsetsLagsLoader : IOffsetsLagsLoader
     /// Creates <see cref="OffsetsLagsLoader"/>.
     /// </summary>
     /// <param name="metadataConsumerFactory">Kafka consumer factory.</param>
-    /// <param name="logger">Lpgger.</param>
+    /// <param name="logger">Logger.</param>
     /// <exception cref="ArgumentNullException">If factory or logger is null.</exception>
     public OffsetsLagsLoader(Func<GroupId, IConsumer<byte[], byte[]>> metadataConsumerFactory,
                              ILogger<OffsetsLagsLoader> logger)
@@ -29,15 +29,14 @@ public class OffsetsLagsLoader : IOffsetsLagsLoader
     public GroupLagResult LoadOffsetsLags(IEnumerable<TopicPartition> partitions, GroupId groupId, TimeSpan timeout)
     {
         ArgumentNullException.ThrowIfNull(partitions);
-        ArgumentNullException.ThrowIfNull(groupId);
 
-        _logger.LogDebug("Loading commited offsets.");
+        _logger.LogDebug("Loading committed offsets offsets.");
 
         using var metadataConsumer = _metadataConsumerFactory(groupId);
 
         var committedOffsets = metadataConsumer.Committed(partitions, timeout);
 
-        _logger.LogDebug("Commited offsets loaded. Count {count}", committedOffsets.Count);
+        _logger.LogDebug("Committed offsets loaded. Count {count}", committedOffsets.Count);
 
         _logger.LogDebug("Loading topics with offsets.");
         var topicsWithFoundOffsets = committedOffsets.GroupBy(t => t.Topic)
@@ -68,5 +67,5 @@ public class OffsetsLagsLoader : IOffsetsLagsLoader
     }
 
     private readonly Func<GroupId, IConsumer<byte[], byte[]>> _metadataConsumerFactory;
-    private readonly ILogger<OffsetsLagsLoader> _logger;
+    private readonly ILogger _logger;
 }

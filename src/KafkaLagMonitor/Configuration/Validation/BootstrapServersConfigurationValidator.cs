@@ -12,7 +12,7 @@ public class BootstrapServersConfigurationValidator : IValidateOptions<Bootstrap
     /// <summary>
     /// Validates <see cref="BootstrapServersConfiguration"/>.
     /// </summary>
-    public ValidateOptionsResult Validate(string name, BootstrapServersConfiguration options)
+    public ValidateOptionsResult Validate(string? name, BootstrapServersConfiguration options)
     {
         Debug.Assert(name is not null);
         Debug.Assert(options is not null);

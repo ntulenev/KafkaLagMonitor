@@ -13,7 +13,7 @@ public class LagApplicationConfigurationValidator : IValidateOptions<LagApplicat
     /// <summary>
     /// Validates <see cref="LagApplicationConfiguration"/>.
     /// </summary>
-    public ValidateOptionsResult Validate(string name, LagApplicationConfiguration options)
+    public ValidateOptionsResult Validate(string? name, LagApplicationConfiguration options)
     {
         Debug.Assert(name is not null);
         Debug.Assert(options is not null);
