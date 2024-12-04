@@ -34,11 +34,11 @@ public class TopicPartitionLoader : ITopicPartitionLoader
                                     .SelectMany(t => t.Partitions.Select(p => new TopicPartition(t.Topic, p.PartitionId)))
                                     .ToList();
 
-        _logger.LogDebug("Partitions has beed loaded. Count - {count}", partitions.Count);
+        _logger.LogDebug("Partitions has been loaded. Count - {count}", partitions.Count);
 
         return partitions;
     }
 
     private readonly IAdminClient _adminClient;
-    private readonly ILogger<TopicPartitionLoader> _logger;
+    private readonly ILogger _logger;
 }
