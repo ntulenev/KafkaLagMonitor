@@ -65,8 +65,8 @@ public class LagApplicationTests
         var partition1 = new Confluent.Kafka.TopicPartition(topicName1, new Confluent.Kafka.Partition(partitionId1));
         var offset1 = new Confluent.Kafka.TopicPartitionOffset(partition1, lowOffset1);
         var wm1 = new Confluent.Kafka.WatermarkOffsets(new Confluent.Kafka.Offset(1), new Confluent.Kafka.Offset(topOffset1));
-        PartitionLag lag1 = new PartitionLag(offset1, wm1);
-        PartitionLag[] lags1 = new[] { lag1 };
+        PartitionLag lag1 = new(offset1, wm1);
+        PartitionLag[] lags1 = [lag1];
         var topOffset2 = 21;
         var lowOffset2 = 6;
         var topicName2 = "456";
@@ -74,13 +74,13 @@ public class LagApplicationTests
         var partition2 = new Confluent.Kafka.TopicPartition(topicName2, new Confluent.Kafka.Partition(partitionId2));
         var offset2 = new Confluent.Kafka.TopicPartitionOffset(partition2, lowOffset2);
         var wm2 = new Confluent.Kafka.WatermarkOffsets(new Confluent.Kafka.Offset(1), new Confluent.Kafka.Offset(topOffset2));
-        PartitionLag lag2 = new PartitionLag(offset1, wm2);
-        PartitionLag[] lags2 = new[] { lag2 };
+        PartitionLag lag2 = new(offset1, wm2);
+        PartitionLag[] lags2 = [lag2];
         var lagResult1 = new GroupLagResult(new GroupId(group1), lags1);
-        var lagResult2 = new GroupLagResult(new Models.GroupId(group2), lags2);
+        var lagResult2 = new GroupLagResult(new GroupId(group2), lags2);
         var loader = new Mock<ILagLoader>(MockBehavior.Strict);
-        loader.Setup(x => x.LoadOffsetsLags(new Models.GroupId(group1), timeout)).Returns(lagResult1);
-        loader.Setup(x => x.LoadOffsetsLags(new Models.GroupId(group2), timeout)).Returns(lagResult2);
+        loader.Setup(x => x.LoadOffsetsLags(new GroupId(group1), timeout)).Returns(lagResult1);
+        loader.Setup(x => x.LoadOffsetsLags(new GroupId(group2), timeout)).Returns(lagResult2);
         var exporter = new Mock<IExporter>(MockBehavior.Strict);
         int export1 = 0;
         int export2 = 0;
@@ -90,10 +90,10 @@ public class LagApplicationTests
         options.Setup(x => x.Value).Returns(new LagApplicationConfiguration
         {
             Timeout = timeout,
-            Groups = new()
-              {
+            Groups =
+            [
                   group1,group2
-              }
+            ]
         });
         var app = new LagApplication(options.Object, loader.Object, exporter.Object);
 

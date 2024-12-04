@@ -14,10 +14,10 @@ namespace KafkaLagMonitor.Tests
             // Act
             var result = validator.Validate(string.Empty, new BootstrapServersConfiguration
             {
-                BootstrapServers = new[]
-                 {
+                BootstrapServers = 
+                [
                      "123"
-                 }.ToList()
+                ]
             });
 
             // Assert
@@ -49,7 +49,7 @@ namespace KafkaLagMonitor.Tests
             // Act
             var result = validator.Validate(string.Empty, new BootstrapServersConfiguration
             {
-                BootstrapServers = new List<string>()
+                BootstrapServers = []
             });
 
             // Assert
@@ -66,10 +66,10 @@ namespace KafkaLagMonitor.Tests
             // Act
             var result = validator.Validate(string.Empty, new BootstrapServersConfiguration
             {
-                BootstrapServers = new List<string>()
-                {
+                BootstrapServers =
+                [
                     ""
-                }
+                ]
             });
 
             // Assert
@@ -85,10 +85,10 @@ namespace KafkaLagMonitor.Tests
             // Act
             var result = validator.Validate(string.Empty, new BootstrapServersConfiguration
             {
-                BootstrapServers = new List<string>()
-                {
+                BootstrapServers =
+                [
                     "   "
-                }
+                ]
             });
 
             // Assert

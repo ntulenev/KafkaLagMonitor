@@ -1,9 +1,4 @@
 ﻿using KafkaLagMonitor.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KafkaLagMonitor.Tests
 {
@@ -25,10 +20,10 @@ namespace KafkaLagMonitor.Tests
             // Arrange
             var config = new LagApplicationConfiguration()
             {
-                Groups = new List<string>()
-                  {
+                Groups =
+                [
                       "A","B"
-                  }
+                ]
             };
 
             // Act

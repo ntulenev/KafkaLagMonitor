@@ -1,4 +1,6 @@
-﻿namespace Export.Tests;
+﻿using Models;
+
+namespace Export.Tests;
 
 public class ConsoleTableExporterTests
 {
@@ -19,11 +21,11 @@ public class ConsoleTableExporterTests
     {
         // Arrange
         var exporter = new ConsoleTableExporter();
-        var exportModel = new Models.GroupLagResult(new Models.GroupId("1"), new[]
-        {
-            new Models.PartitionLag(new Confluent.Kafka.TopicPartitionOffset(
+        var exportModel = new GroupLagResult(new GroupId("1"),
+        [
+            new PartitionLag(new Confluent.Kafka.TopicPartitionOffset(
                 new Confluent.Kafka.TopicPartition("a",new Confluent.Kafka.Partition(1)),Confluent.Kafka.Offset.Beginning))
-        });
+        ]);
 
         // Act
         var exception = Record.Exception(() => exporter.Export(exportModel));

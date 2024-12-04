@@ -16,7 +16,7 @@ public class LagApplication
     /// Creates <see cref="LagApplication"/>.
     /// </summary>
     /// <param name="options">Configuration.</param>
-    /// <param name="loader">Kafla lag loader.</param>
+    /// <param name="loader">Kafka lag loader.</param>
     /// <param name="exporter">Kafka lag exporter.</param>
     /// <exception cref="ArgumentNullException">Throws if some params not set.</exception>
     /// <exception cref="ArgumentException">Throws if some params if not correct.</exception>

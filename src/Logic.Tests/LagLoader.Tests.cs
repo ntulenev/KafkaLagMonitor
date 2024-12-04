@@ -1,7 +1,7 @@
 ﻿using Confluent.Kafka;
 
-using Models;
 using Abstractions.Logic;
+using Models;
 
 namespace Logic.Tests;
 

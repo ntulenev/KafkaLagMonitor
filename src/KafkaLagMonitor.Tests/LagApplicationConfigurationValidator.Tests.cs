@@ -14,7 +14,7 @@ public class LagApplicationConfigurationValidatorTests
         // Act
         var result = validator.Validate(string.Empty, new LagApplicationConfiguration
         {
-            Groups = new List<string> { "a" },
+            Groups = ["a"],
             Timeout = TimeSpan.FromSeconds(10)
         });
 
@@ -23,7 +23,7 @@ public class LagApplicationConfigurationValidatorTests
     }
 
     [Fact]
-    public void LagApplicationConfigurationValidatorFaildsOnBadTimestamp()
+    public void LagApplicationConfigurationValidatorFailsOnBadTimestamp()
     {
         // Arrange
         var validator = new LagApplicationConfigurationValidator();
@@ -31,7 +31,7 @@ public class LagApplicationConfigurationValidatorTests
         // Act
         var result = validator.Validate(string.Empty, new LagApplicationConfiguration
         {
-            Groups = new List<string> { "a" },
+            Groups = ["a"],
             Timeout = TimeSpan.Zero
         });
 
@@ -40,7 +40,7 @@ public class LagApplicationConfigurationValidatorTests
     }
 
     [Fact]
-    public void LagApplicationConfigurationValidatorFaildsOnNullGroups()
+    public void LagApplicationConfigurationValidatorFailsOnNullGroups()
     {
         // Arrange
         var validator = new LagApplicationConfigurationValidator();
@@ -57,7 +57,7 @@ public class LagApplicationConfigurationValidatorTests
     }
 
     [Fact]
-    public void LagApplicationConfigurationValidatorFaildsOnEmptyGroups()
+    public void LagApplicationConfigurationValidatorFailsOnEmptyGroups()
     {
         // Arrange
         var validator = new LagApplicationConfigurationValidator();
@@ -65,7 +65,7 @@ public class LagApplicationConfigurationValidatorTests
         // Act
         var result = validator.Validate(string.Empty, new LagApplicationConfiguration
         {
-            Groups = new List<string>(),
+            Groups = [],
             Timeout = TimeSpan.FromSeconds(10)
         });
 
@@ -74,7 +74,7 @@ public class LagApplicationConfigurationValidatorTests
     }
 
     [Fact]
-    public void LagApplicationConfigurationValidatorFaildsOnEmptyGroup()
+    public void LagApplicationConfigurationValidatorFailsOnEmptyGroup()
     {
         // Arrange
         var validator = new LagApplicationConfigurationValidator();
@@ -82,10 +82,10 @@ public class LagApplicationConfigurationValidatorTests
         // Act
         var result = validator.Validate(string.Empty, new LagApplicationConfiguration
         {
-            Groups = new List<string>()
-            {
+            Groups =
+            [
                 "A", string.Empty
-            },
+            ],
             Timeout = TimeSpan.FromSeconds(10)
         });
 
@@ -94,7 +94,7 @@ public class LagApplicationConfigurationValidatorTests
     }
 
     [Fact]
-    public void LagApplicationConfigurationValidatorFaildsOnOnlyWhitespaceGroup()
+    public void LagApplicationConfigurationValidatorFailsOnOnlyWhitespaceGroup()
     {
         // Arrange
         var validator = new LagApplicationConfigurationValidator();
@@ -102,10 +102,10 @@ public class LagApplicationConfigurationValidatorTests
         // Act
         var result = validator.Validate(string.Empty, new LagApplicationConfiguration
         {
-            Groups = new List<string>()
-            {
+            Groups =
+            [
                 "A", "    "
-            },
+            ],
             Timeout = TimeSpan.FromSeconds(10)
         });
 

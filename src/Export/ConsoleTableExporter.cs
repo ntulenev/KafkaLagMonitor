@@ -1,8 +1,7 @@
 ﻿using Abstractions.Export;
 
-using Models;
-
 using ConsoleTables;
+using Models;
 
 namespace Export;
 

@@ -2,7 +2,6 @@
 
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
-
 using Models;
 
 namespace Logic.Tests
@@ -24,7 +23,7 @@ namespace Logic.Tests
         }
 
         [Fact]
-        public void OffsetsLagsLoaderCantBeCreatedWuthNullDelegate()
+        public void OffsetsLagsLoaderCantBeCreatedWithNullDelegate()
         {
             // Arrange
             var logger = Mock.Of<ILogger<OffsetsLagsLoader>>(MockBehavior.Strict);
@@ -37,7 +36,7 @@ namespace Logic.Tests
         }
 
         [Fact]
-        public void OffsetsLagsLoaderCantBeCreatedWuthNullLogger()
+        public void OffsetsLagsLoaderCantBeCreatedWithNullLogger()
         {
             // Arrange
             Func<GroupId, IConsumer<byte[], byte[]>> func = _ => null!;

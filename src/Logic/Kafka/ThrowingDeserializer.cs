@@ -17,7 +17,7 @@ public class ThrowingDeserializer : IDeserializer<byte[]>
     private ThrowingDeserializer() { }
 
     /// <summary>
-    /// Deserialize any byte data with thowing NotSupportedException.
+    /// Deserialize any byte data with throwing NotSupportedException.
     /// </summary>
     /// <exception cref="NotSupportedException">Throws for any data.</exception>
     public byte[] Deserialize(ReadOnlySpan<byte> data, bool isNull, SerializationContext context)

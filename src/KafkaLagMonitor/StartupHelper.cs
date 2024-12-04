@@ -90,7 +90,7 @@ public static class StartupHelper
         if (validationResult.Failed)
         {
             throw new OptionsValidationException
-                (string.Empty, typeof(BootstrapServersConfiguration), new[] { validationResult.FailureMessage });
+                (string.Empty, typeof(BootstrapServersConfiguration), [validationResult.FailureMessage]);
         }
 
         return config;
