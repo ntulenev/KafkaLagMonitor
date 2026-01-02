@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Options;
 
 using Abstractions.Export;
 using Abstractions.Logic;
@@ -10,7 +10,9 @@ namespace KafkaLagMonitor;
 /// <summary>
 /// Main app. Shows lags for groups from config.
 /// </summary>
+#pragma warning disable CA1515 // Consider making public types internal
 public class LagApplication
+#pragma warning restore CA1515 // Consider making public types internal
 {
     /// <summary>
     /// Creates <see cref="LagApplication"/>.
