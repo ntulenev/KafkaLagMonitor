@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 
 using Confluent.Kafka;
 
@@ -34,7 +34,8 @@ public class TopicPartitionLoader : ITopicPartitionLoader
                                     .SelectMany(t => t.Partitions.Select(p => new TopicPartition(t.Topic, p.PartitionId)))
                                     .ToList();
 
-        _logger.LogDebug("Partitions has been loaded. Count - {count}", partitions.Count);
+        _logger.LogDebug("Partitions has been loaded. Count - {Count}",
+                         partitions.Count);
 
         return partitions;
     }
