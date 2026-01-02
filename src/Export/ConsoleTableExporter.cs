@@ -1,6 +1,7 @@
-﻿using Abstractions.Export;
+using Abstractions.Export;
 
 using ConsoleTables;
+
 using Models;
 
 namespace Export;
@@ -13,17 +14,19 @@ public class ConsoleTableExporter : IExporter
 
     /// <inheritdoc/>
     /// <exception cref="ArgumentNullException">Thrown when data is null.</exception>
-    public void Export(GroupLagResult data)
+    public void Export(GroupLagResult groupLag)
     {
-        ArgumentNullException.ThrowIfNull(data);
+        ArgumentNullException.ThrowIfNull(groupLag);
 
-        BuildTitle(data);
-        FillTable(data);
+        BuildTitle(groupLag);
+        FillTable(groupLag);
     }
 
     private static void BuildTitle(GroupLagResult data)
     {
+#pragma warning disable IDE0022 // Use expression body for method
         Console.WriteLine($"Group - {data.Group.Value}");
+#pragma warning restore IDE0022 // Use expression body for method
     }
 
     private static void FillTable(GroupLagResult data)
@@ -32,7 +35,7 @@ public class ConsoleTableExporter : IExporter
 
         foreach (var item in data.Lags)
         {
-            table.AddRow(item.Topic, item.PartitionId, item.Lag);
+            _ = table.AddRow(item.Topic, item.PartitionId, item.Lag);
         }
 
         table.Write();
