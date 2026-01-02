@@ -1,4 +1,4 @@
-﻿using Models;
+using Models;
 
 namespace Abstractions.Export;
 
@@ -11,6 +11,6 @@ public interface IExporter
     /// Exports lag results.
     /// </summary>
     /// <param name="groupLag">Lag result for group.</param>
-    public void Export(GroupLagResult groupLag);
+    void Export(GroupLagResult groupLag);
 }
 
