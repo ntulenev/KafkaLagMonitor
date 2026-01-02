@@ -1,9 +1,8 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 using Confluent.Kafka;
@@ -24,7 +23,7 @@ namespace KafkaLagMonitor;
 /// <summary>
 /// Config and DI helpers
 /// </summary>
-public static class StartupHelper
+internal static class StartupHelper
 {
     /// <summary>
     /// Register configuration DI.
@@ -40,10 +39,8 @@ public static class StartupHelper
     /// Register config files.
     /// </summary>
     /// <param name="builder"></param>
-    public static void RegisterApplicationSettings(this IConfigurationBuilder builder)
-    {
+    public static void RegisterApplicationSettings(this IConfigurationBuilder builder) =>
         builder.AddJsonFile("appsettings.json", optional: true);
-    }
 
     /// <summary>
     /// Registers logging.
@@ -87,13 +84,10 @@ public static class StartupHelper
 
         // Crutch to use IValidateOptions in manual generation logic.
         var validationResult = validator.Validate(string.Empty, config);
-        if (validationResult.Failed)
-        {
-            throw new OptionsValidationException
-                (string.Empty, typeof(BootstrapServersConfiguration), [validationResult.FailureMessage]);
-        }
-
-        return config;
+        return validationResult.Failed
+            ? throw new OptionsValidationException
+                (string.Empty, typeof(BootstrapServersConfiguration), [validationResult.FailureMessage])
+            : config;
     }
 
     /// <summary>
