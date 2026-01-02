@@ -1,4 +1,5 @@
-﻿using Abstractions.Logic;
+using Abstractions.Logic;
+
 using Models;
 
 namespace Logic;
@@ -9,7 +10,7 @@ namespace Logic;
 public class LagLoader : ILagLoader
 {
     /// <summary>
-    /// Creates <see cref="=LagLoader"/>.
+    /// Creates <see cref="LagLoader"/>.
     /// </summary>
     /// <param name="offsetLoader">Offset loader.</param>
     /// <param name="topicLoader">Topic loader.</param>
