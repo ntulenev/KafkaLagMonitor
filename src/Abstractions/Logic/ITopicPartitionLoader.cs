@@ -1,4 +1,4 @@
-﻿using Confluent.Kafka;
+using Confluent.Kafka;
 
 namespace Abstractions.Logic;
 
@@ -12,5 +12,5 @@ public interface ITopicPartitionLoader
     /// </summary>
     /// <param name="timeout">Loads timeout.</param>
     /// <returns>Partitions collection.</returns>
-    public IReadOnlyCollection<TopicPartition> LoadPartitions(TimeSpan timeout);
+    IReadOnlyCollection<TopicPartition> LoadPartitions(TimeSpan timeout);
 }
