@@ -1,4 +1,4 @@
-﻿using Confluent.Kafka;
+using Confluent.Kafka;
 
 namespace Logic.Kafka;
 
@@ -7,12 +7,12 @@ namespace Logic.Kafka;
 /// </summary>
 public class ThrowingDeserializer : IDeserializer<byte[]>
 {
-    private static readonly Lazy<ThrowingDeserializer> lazy = new(() => new ThrowingDeserializer());
+    private static readonly Lazy<ThrowingDeserializer> _lazy = new(() => new ThrowingDeserializer());
 
     /// <summary>
     /// Singleton instance of <see cref="ThrowingDeserializer"/>.
     /// </summary>
-    public static ThrowingDeserializer Instance => lazy.Value;
+    public static ThrowingDeserializer Instance => _lazy.Value;
 
     private ThrowingDeserializer() { }
 
@@ -21,7 +21,5 @@ public class ThrowingDeserializer : IDeserializer<byte[]>
     /// </summary>
     /// <exception cref="NotSupportedException">Throws for any data.</exception>
     public byte[] Deserialize(ReadOnlySpan<byte> data, bool isNull, SerializationContext context)
-    {
-        throw new NotSupportedException();
-    }
+        => throw new NotSupportedException();
 }
