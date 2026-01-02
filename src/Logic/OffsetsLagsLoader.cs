@@ -1,4 +1,4 @@
-﻿using Confluent.Kafka;
+using Confluent.Kafka;
 
 using Microsoft.Extensions.Logging;
 
@@ -36,14 +36,14 @@ public class OffsetsLagsLoader : IOffsetsLagsLoader
 
         var committedOffsets = metadataConsumer.Committed(partitions, timeout);
 
-        _logger.LogDebug("Committed offsets loaded. Count {count}", committedOffsets.Count);
+        _logger.LogDebug("Committed offsets loaded. Count {Count}", committedOffsets.Count);
 
         _logger.LogDebug("Loading topics with offsets.");
         var topicsWithFoundOffsets = committedOffsets.GroupBy(t => t.Topic)
                                                      .Where(t => t.Any(s => !s.Offset.IsSpecial))
                                                      .SelectMany(t => t).ToList();
 
-        _logger.LogDebug("Topics with offsets loaded. Count {count}", topicsWithFoundOffsets.Count);
+        _logger.LogDebug("Topics with offsets loaded. Count {Count}", topicsWithFoundOffsets.Count);
 
 
         _logger.LogDebug("Loading lags.");
@@ -61,7 +61,7 @@ public class OffsetsLagsLoader : IOffsetsLagsLoader
 
         }).ToList();
 
-        _logger.LogDebug("Lags loaded. Count {count}", lags.Count);
+        _logger.LogDebug("Lags loaded. Count {Count}", lags.Count);
 
         return new(groupId, lags);
     }
