@@ -1,4 +1,5 @@
-﻿using Confluent.Kafka;
+using Confluent.Kafka;
+
 using Models;
 
 namespace Abstractions.Logic;
@@ -15,5 +16,5 @@ public interface IOffsetsLagsLoader
     /// <param name="groupId">Group.</param>
     /// <param name="timeout">Load timeout.</param>
     /// <returns>Lags for group.</returns>
-    public GroupLagResult LoadOffsetsLags(IEnumerable<TopicPartition> partitions, GroupId groupId, TimeSpan timeout);
+    GroupLagResult LoadOffsetsLags(IEnumerable<TopicPartition> partitions, GroupId groupId, TimeSpan timeout);
 }
