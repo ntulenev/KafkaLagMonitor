@@ -1,4 +1,4 @@
-﻿using Models;
+using Models;
 
 namespace Abstractions.Logic;
 
@@ -13,5 +13,5 @@ public interface ILagLoader
     /// <param name="groupId">GroupId.</param>
     /// <param name="timeout">Load timeout.</param>
     /// <returns>Lags for group.</returns>
-    public GroupLagResult LoadOffsetsLags(GroupId groupId, TimeSpan timeout);
+    GroupLagResult LoadOffsetsLags(GroupId groupId, TimeSpan timeout);
 }
